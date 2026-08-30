@@ -220,7 +220,18 @@ p { color: var(--muted); }
   gap: 10px;
 }
 
-.product-card p { flex-grow: 1; font-size: 0.95rem; }
+.product-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+}
+
+.product-card p {
+  flex-grow: 1;
+  font-size: 0.95rem;
+}
 
 /* ===== Why Us ===== */
 .why-us { background: var(--bg-alt); }
