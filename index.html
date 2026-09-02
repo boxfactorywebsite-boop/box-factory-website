@@ -283,8 +283,7 @@
   <section id="quote" class="section quote">
     <div class="container">
       <h2 class="section-title">LET'S BUILD THE RIGHT PACKAGING FOR YOUR BUSINESS</h2>
-      <form name="quote-request" method="POST" data-netlify="true" action="/thank-you" class="quote-form">
-        <input type="hidden" name="form-name" value="quote-request" />
+      <form id="quoteForm" class="quote-form">
         <div class="form-grid">
           <div class="form-field">
             <label for="fullName">Full Name</label>
@@ -394,7 +393,40 @@
 
 <!-- Floating chatbot placeholder -->
 <button class="chat-float" id="chatFloat" aria-label="Chat with us">&#128172;</button>
+<script>
+document.getElementById("quoteForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
 
+  const form = e.target;
+  const formData = new FormData(form);
+
+  const data = Object.fromEntries(formData.entries());
+
+  try {
+    const response = await fetch("/api/quote", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      alert("Thank you! Your quote request has been submitted successfully.");
+      form.reset();
+    } else {
+      alert("Something went wrong. Please try again.");
+      console.error(result);
+    }
+  } catch (error) {
+    alert("Unable to submit your request. Please try again.");
+    console.error(error);
+  }
+});
+</script>
+  
 <script src="js/script.js"></script>
 </body>
 </html>
